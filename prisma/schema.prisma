@@ -8,6 +8,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -20,7 +21,18 @@ model Todo {
   status TodoStatus
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userEmail String?
+  user User? @relation(fields: [userEmail], references: [email])
 }
+
+model User {
+  id Int @default(autoincrement()) @id
+  email String @unique
+  password String
+  name String
+  todos Todo[]
+} 
+
 
 enum TodoStatus{
   DONE

@@ -8,22 +8,32 @@ import { Prisma } from '@prisma/client';
 export class TodoService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async create(createTodoDto: CreateTodoDto) {
+  async create(createTodoDto: CreateTodoDto, email: string) {
     try {
+      const user = await this.databaseService.user.findUnique({where: { email }});
+      if(!user){
+        throw new Error('User not found');
+      }
       const data: Prisma.TodoCreateInput = {
         description: createTodoDto.description,
         task: createTodoDto.task,
         status: 'ACTIVE',
+        user: {
+          connect: { email: user.email},
+        },
       };
-      console.log(data);
       return await this.databaseService.todo.create({ data });
     } catch (err) {
       return err;
     }
   }
 
-  async findAll() {
-    return await this.databaseService.todo.findMany();
+  async findAll(userEmail: string) {
+    return await this.databaseService.todo.findMany({
+      where:{
+        userEmail: userEmail
+      }
+    });
   }
 
   async findOne(id: number) {
