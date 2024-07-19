@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   app.useGlobalPipes(new ValidationPipe())
   const config = new DocumentBuilder()
   .setTitle('Todo REST API')
@@ -13,7 +14,14 @@ async function bootstrap() {
   .addBearerAuth()
   .build();
 const document = SwaggerModule.createDocument(app, config);
-SwaggerModule.setup('api', app, document);
+SwaggerModule.setup('/swagger', app, document, {
+  customCssUrl:
+  'https://cdnjs.cloudfare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
+  customJs: [
+    'https://cdnjs.cloudfare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js',
+    'https://cdnjs.cloudfare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalaone-preset.js'
+  ]
+});
 await app.listen(3000);
 }
 bootstrap();

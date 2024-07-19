@@ -11,8 +11,8 @@ import {
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
-import { JwtAuthGuard } from 'src/auth/auth.guard';
-import { userEmail } from 'src/common/decorator/user-email.decorator';
+import { JwtAuthGuard } from '../auth/auth.guard';
+import { userEmail } from '../common/decorator/user-email.decorator';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags('Todo')
