@@ -19,8 +19,8 @@ SwaggerModule.setup('/swagger', app, document, {
   'https://cdnjs.cloudfare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
   customJs: [
     'https://cdnjs.cloudfare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js',
-    'https://cdnjs.cloudfare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalaone-preset.js'
-  ]
+    'https://cdnjs.cloudfare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalaone-preset.js',
+  ],
 });
 await app.listen(3000);
 }
